@@ -1,4 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://h2vdvwrjsc6j"]
+[gd_scene load_steps=8 format=3 uid="uid://h2vdvwrjsc6j"]
+
+[ext_resource type="MeshLibrary" uid="uid://dr2f2h8jolnuo" path="res://MeshLibraries/SpaceLibrary.tres" id="1_mb2ko"]
+[ext_resource type="PackedScene" uid="uid://b52xavsn8uxua" path="res://Scenes/Enemy/enemy.tscn" id="2_n8wt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rskd1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -13,6 +16,16 @@ sky = SubResource("Sky_mb2ko")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8wt5"]
+albedo_color = Color(0.266667, 0.266667, 0.266667, 0.266667)
+
+[sub_resource type="Curve3D" id="Curve3D_mb2ko"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -21.8649, 0, 5.86388, 0, 0, 0, 0, 0, 0, -13.8635, 0, 5.83098, 0, 0, 0, 0, 0, 0, -13.8635, 0, -5.73786, 0, 0, 0, 0, 0, 0, -5.86813, 0, -5.77076, 0, 0, 0, 0, 0, 0, -5.86813, 0, 5.99549, 0, 0, 0, 0, 0, 0, 1.99562, 0, 5.96259, 0, 0, 0, 0, 0, 0, 2.16014, 0, -2.16438, 0, 0, 0, 0, 0, 0, 9.92517, 0, -2.26309, 0, 0, 0, 0, 0, 0, 9.92517, 0, 6.50114, 0, 0, 0, 0, 0, 0, 18.4141, 0, 6.33577, 0, 0, 0, 0, 0, 0, 18.3812, 0, -9.59203),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
 [node name="BaseLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -25,6 +38,63 @@ shadow_enabled = true
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(100, 2, 100)
+material = SubResource("StandardMaterial3D_n8wt5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14.5, 9.5)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_mb2ko")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65531, 65535, 1310720, 65531, 0, 1310720, 65531, 65534, 1310720, 65532, 2, 1310720, 65533, 2, 1310720, 65534, 2, 1310720, 3, 65534, 1310720, 2, 65534, 1310720, 0, 65534, 1048576, 65535, 2, 1310720, 0, 2, 1310720, 65533, 65535, 1310720, 65533, 0, 1310720, 65533, 1, 1310720, 65535, 65534, 1310720, 65535, 65535, 1310720, 65535, 0, 1310720, 1, 65534, 1310720, 1, 0, 1310720, 1, 1, 1310720, 1, 2, 1310720, 3, 65535, 1310720, 3, 0, 1310720, 65531, 2, 1310720, 65531, 65533, 1048576, 65532, 65533, 1048576, 65533, 65533, 1048576, 65534, 65533, 1048576, 65535, 65533, 1048576, 0, 65533, 1048576, 3, 65533, 1048576, 2, 65533, 1048576, 1, 65533, 1048576, 2, 2, 1310720, 3, 2, 1310720, 4, 2, 1310720, 5, 2, 1310720, 5, 1, 1310720, 5, 0, 1310720, 5, 65535, 1310720, 5, 65534, 1310720, 5, 65533, 1310720)
+}
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_mb2ko")
+
+[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="LeftEdge" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(-1.1, 0, -1.1, 0.15, -0.9, 0.15, -0.9, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="RightEdge" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(0.9, 0, 0.9, 0.15, 1.1, 0.15, 1.1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Enemy" parent="Path3D" instance=ExtResource("2_n8wt5")]
+transform = Transform3D(0.00411228, 0, -0.999985, 0, 1, 0, 0.999985, 0, 0.00411228, -20.8653, 0, 5.85977)
