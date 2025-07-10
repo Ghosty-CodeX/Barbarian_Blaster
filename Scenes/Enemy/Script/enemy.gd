@@ -14,3 +14,4 @@ func _process(delta: float) -> void:
 	progress += delta * move_speed
 	if progress_ratio == 1.0:
 		base.take_damage()
+		set_process(false)
