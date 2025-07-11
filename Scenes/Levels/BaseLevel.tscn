@@ -98,7 +98,24 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="Enemy" parent="Path3D" instance=ExtResource("2_n8wt5")]
-transform = Transform3D(0.00411168, 0, -0.999985, 0, 1, 0, 0.999985, 0, 0.00411168, -20.8653, 0, 5.85977)
+transform = Transform3D(0.00411168, 0, -0.999985, 0, 1, 0, 0.999985, 0, 0.00411168, -21.8649, 0, 5.86388)
+progress = 0.0
+
+[node name="Enemy2" parent="Path3D" instance=ExtResource("2_n8wt5")]
+transform = Transform3D(0.00411168, 0, -0.999985, 0, 1, 0, 0.999985, 0, 0.00411168, -16.8647, 0, 5.84332)
+progress = 5.0
+
+[node name="Enemy3" parent="Path3D" instance=ExtResource("2_n8wt5")]
+transform = Transform3D(0.999993, 0, 0, 0, 1, 0, 0, 0, 0.999993, -13.8635, 0, 3.83258)
+progress = 10.0
+
+[node name="Enemy4" parent="Path3D" instance=ExtResource("2_n8wt5")]
+transform = Transform3D(0.999993, 0, 0, 0, 1, 0, 0, 0, 0.999993, -13.8635, 0, -1.16755)
+progress = 15.0
+
+[node name="Enemy5" parent="Path3D" instance=ExtResource("2_n8wt5")]
+transform = Transform3D(0.00411478, 0, -0.999985, 0, 1, 0, 0.999985, 0, 0.00411478, -13.4315, 0, -5.73964)
+progress = 20.0
 
 [node name="Base" parent="." instance=ExtResource("3_1rdqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -9)
