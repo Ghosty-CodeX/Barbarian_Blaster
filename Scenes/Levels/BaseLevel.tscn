@@ -70,11 +70,12 @@ data = {
 "cells": PackedInt32Array(65531, 65535, 1310720, 65531, 0, 1310720, 65531, 65534, 1310720, 65532, 2, 1310720, 65533, 2, 1310720, 65534, 2, 1310720, 3, 65534, 1310720, 2, 65534, 1310720, 0, 65534, 1048576, 65535, 2, 1310720, 0, 2, 1310720, 65533, 65535, 1310720, 65533, 0, 1310720, 65533, 1, 1310720, 65535, 65534, 1310720, 65535, 65535, 1310720, 65535, 0, 1310720, 1, 65534, 1310720, 1, 0, 1310720, 1, 1, 1310720, 1, 2, 1310720, 3, 65535, 1310720, 3, 0, 1310720, 65531, 2, 1310720, 65531, 65533, 1048576, 65532, 65533, 1048576, 65533, 65533, 1048576, 65534, 65533, 1048576, 65535, 65533, 1048576, 0, 65533, 1048576, 3, 65533, 1048576, 2, 65533, 1048576, 1, 65533, 1048576, 2, 2, 1310720, 3, 2, 1310720, 4, 2, 1310720, 5, 2, 1310720, 5, 1, 1310720, 5, 0, 1310720, 5, 65535, 1310720, 5, 65534, 1310720, 5, 65533, 1310720)
 }
 
-[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager", "victory_layer")]
 curve = SubResource("Curve3D_mb2ko")
 script = ExtResource("3_6qoed")
 enemy_scene = ExtResource("2_n8wt5")
 difficulty_manager = NodePath("../DifficultyManager")
+victory_layer = NodePath("../VictoryLayer")
 
 [node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
@@ -85,7 +86,7 @@ path_interval = 0.5
 path_simplify_angle = 0.0
 path_rotation = 2
 path_rotation_accurate = false
-path_local = false
+path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
@@ -99,7 +100,7 @@ path_interval = 0.5
 path_simplify_angle = 0.0
 path_rotation = 2
 path_rotation_accurate = false
-path_local = false
+path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
@@ -113,7 +114,7 @@ path_interval = 0.5
 path_simplify_angle = 0.0
 path_rotation = 2
 path_rotation_accurate = false
-path_local = false
+path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
@@ -153,6 +154,17 @@ label_settings = SubResource("LabelSettings_ln6xy")
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_0mns8")]
 enemey_health_curve = SubResource("Curve_0mns8")
+
+[node name="VictoryLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="VictoryLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
 
 [connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="spawn_enemy"]
 [connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
