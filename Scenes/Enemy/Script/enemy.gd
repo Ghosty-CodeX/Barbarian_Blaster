@@ -2,17 +2,20 @@ extends PathFollow3D
 
 @export var move_speed : float = 2.5
 @export var max_health : int = 50
+@export var kill_xp : int = 15
+
+@onready var bank = get_tree().get_first_node_in_group("bank")
+@onready var base = get_tree().get_first_node_in_group("base")
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 var current_health : int:
 	set(health_in):
 		if health_in < current_health:
 			animation_player.play("TakeDamage")
 		current_health = health_in
 		if current_health < 1:
+			bank.gold += kill_xp
 			queue_free()
-
-@onready var base = get_tree().get_first_node_in_group("base")
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-
 
 
 func _ready() -> void:
