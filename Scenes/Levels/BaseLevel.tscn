@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://h2vdvwrjsc6j"]
+[gd_scene load_steps=15 format=3 uid="uid://h2vdvwrjsc6j"]
 
 [ext_resource type="PackedScene" uid="uid://dr6y1hotvycax" path="res://Scenes/RayPickerCamera/ray_picker_camera.tscn" id="1_7p43g"]
 [ext_resource type="MeshLibrary" uid="uid://dr2f2h8jolnuo" path="res://MeshLibraries/SpaceLibrary.tres" id="1_mb2ko"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dgfsp22s740dw" path="res://Scripts/enemy_path.gd" id="3_6qoed"]
 [ext_resource type="Script" uid="uid://dgdrcxvhx61rx" path="res://Scripts/turret_manager.gd" id="5_0yhfe"]
 [ext_resource type="PackedScene" uid="uid://buytw0oqckgfk" path="res://Scenes/Turret/turret.tscn" id="6_6qoed"]
+[ext_resource type="Script" uid="uid://clmej4crwnc8u" path="res://Scripts/bank.gd" id="8_iyjcb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rskd1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -30,6 +31,11 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_ln6xy"]
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -116,5 +122,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -9)
 script = ExtResource("5_0yhfe")
 turret = ExtResource("6_6qoed")
 enemy_path = NodePath("../EnemyPath")
+
+[node name="Bank" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("8_iyjcb")
+
+[node name="Label" type="Label" parent="Bank"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Placeholder Text"
+label_settings = SubResource("LabelSettings_ln6xy")
 
 [connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="spawn_enemy"]
