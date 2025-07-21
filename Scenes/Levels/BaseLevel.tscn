@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://h2vdvwrjsc6j"]
+[gd_scene load_steps=22 format=3 uid="uid://h2vdvwrjsc6j"]
 
 [ext_resource type="PackedScene" uid="uid://dr6y1hotvycax" path="res://Scenes/RayPickerCamera/ray_picker_camera.tscn" id="1_7p43g"]
 [ext_resource type="MeshLibrary" uid="uid://dr2f2h8jolnuo" path="res://MeshLibraries/SpaceLibrary.tres" id="1_mb2ko"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dgdrcxvhx61rx" path="res://Scripts/turret_manager.gd" id="5_0yhfe"]
 [ext_resource type="PackedScene" uid="uid://buytw0oqckgfk" path="res://Scenes/Turret/turret.tscn" id="6_6qoed"]
 [ext_resource type="Script" uid="uid://clmej4crwnc8u" path="res://Scripts/bank.gd" id="8_iyjcb"]
+[ext_resource type="FontFile" uid="uid://cnd46bvwwvmjq" path="res://Assets/Asap/Asap-VariableFont_wdth,wght.ttf" id="8_poiwk"]
 [ext_resource type="PackedScene" uid="uid://nnuu186423qv" path="res://Scenes/DifficultyManager/difficulty_manager.tscn" id="9_0mns8"]
 [ext_resource type="PackedScene" uid="uid://d3xwtdhiuaqo4" path="res://Scenes/UserInterface/victory_layer.tscn" id="10_lp7ck"]
 
@@ -43,15 +44,13 @@ albedo_color = Color(0.360784, 0.360784, 0.360784, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5c1rd"]
 albedo_color = Color(0.360784, 0.360784, 0.360784, 1)
 
+[sub_resource type="Theme" id="Theme_acbku"]
+default_font = ExtResource("8_poiwk")
+
 [sub_resource type="LabelSettings" id="LabelSettings_ln6xy"]
 font_size = 64
 outline_size = 16
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Curve" id="Curve_0mns8"]
-_limits = [0.99, 150.0, 0.0, 1.0]
-_data = [Vector2(0, 10), -1.4901e+07, 140.0, 1, 1, Vector2(1, 150), 140.0, -1.4901e+07, 1, 1]
-point_count = 2
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -138,7 +137,6 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_1rdqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -9)
-max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_0yhfe")
@@ -152,12 +150,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_acbku")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("8_iyjcb")
-starting_gold = 15000
 
 [node name="Label" type="Label" parent="Bank"]
 layout_mode = 2
@@ -167,7 +165,6 @@ text = "Placeholder Text"
 label_settings = SubResource("LabelSettings_ln6xy")
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_0mns8")]
-enemey_health_curve = SubResource("Curve_0mns8")
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_lp7ck")]
 visible = false
