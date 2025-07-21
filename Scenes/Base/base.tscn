@@ -1,19 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dngj8xq5n8hum"]
 
 [ext_resource type="Script" uid="uid://c8v77dsamo2s1" path="res://Scenes/Base/Scripts/base.gd" id="1_3m01j"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60lao"]
-albedo_color = Color(1, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://cgrcutijhpxjb" path="res://Assets/Base.glb" id="2_sqd20"]
 
 [node name="Base" type="Node3D" groups=["base"]]
 script = ExtResource("1_3m01j")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-radius = 2.0
-height = 4.0
-sides = 32
-material = SubResource("StandardMaterial3D_60lao")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
@@ -21,3 +12,5 @@ billboard = 1
 text = "Max_health"
 font_size = 500
 outline_size = 100
+
+[node name="Base" parent="." instance=ExtResource("2_sqd20")]
